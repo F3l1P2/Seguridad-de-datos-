@@ -2,7 +2,7 @@
 
 **Alumno:** Felipe Adahir Aguilar Chan  
 **Materia:** Seguridad de la Información  
-**Fecha:** 23 de febrero de 2026
+**Fecha:** 15 de febrero de 2026
 
 ---
 
