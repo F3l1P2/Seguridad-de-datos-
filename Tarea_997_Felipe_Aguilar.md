@@ -1,4 +1,4 @@
-# 🛡️ Tarea #997: Conceptos Básicos de Seguridad Informática
+# Tarea #997: Conceptos Básicos de Seguridad Informática
 
 **Alumno:** Felipe Adahir Aguilar Chan  
 **Materia:** Seguridad de la Información  
@@ -6,7 +6,7 @@
 
 ---
 
-## 1. 🔺 La Tríada CIA
+## 1.  La Tríada CIA
 La base de cualquier estrategia de seguridad se apoya en tres pilares fundamentales. Si uno falla, la seguridad de la información se ve comprometida.
 
 ```mermaid
@@ -25,7 +25,7 @@ graph TD
 
 ---
 
-## 2. ⚖️ Triángulo de Usabilidad, Seguridad y Funcionalidad
+## 2. Triángulo de Usabilidad, Seguridad y Funcionalidad
 En ciberseguridad, existe un "trade-off" o equilibrio necesario. No se puede tener el máximo en los tres puntos simultáneamente.
 
 ```mermaid
@@ -40,7 +40,7 @@ graph BT
 
 ---
 
-## 3. 📉 Gestión de Riesgos
+## 3. Gestión de Riesgos
 El riesgo no es un concepto aislado, sino el resultado de la interacción de varios factores:
 
 ### La Ecuación del Riesgo
@@ -55,7 +55,7 @@ $$Riesgo = (Amenaza 	imes Vulnerabilidad) 	imes Impacto$$
 
 ---
 
-## 4. 🔐 Autenticación Multifactor (MFA)
+## 4. Autenticación Multifactor (MFA)
 El MFA añade capas de protección para asegurar que quien accede es quien dice ser. Se basa en tres factores de verificación:
 
 - [ ] **Algo que sabes:** Contraseñas, PINs o preguntas de seguridad.
@@ -64,7 +64,7 @@ El MFA añade capas de protección para asegurar que quien accede es quien dice 
 
 ---
 
-## 📖 Resumen de Conceptos (Bitácora)
+## Resumen de Conceptos (Bitácora)
 
 | Término | Definición Breve |
 | :--- | :--- |
@@ -75,12 +75,10 @@ El MFA añade capas de protección para asegurar que quien accede es quien dice 
 
 ---
 
-## 💡 Ejemplo Práctico: Ataque de Phishing
+##  Ejemplo Práctico: Ataque de Phishing
 Para ilustrar la relación:
 1.  **Vulnerabilidad:** Falta de capacitación del personal (abren correos sospechosos).
 2.  **Amenaza:** Un atacante enviando un correo falso de "actualización de contraseña".
 3.  **Riesgo:** Alta probabilidad de robo de credenciales en una empresa sin MFA.
 4.  **Impacto:** Acceso no autorizado a la base de datos de clientes (Pérdida de **Confidencialidad**).
-
----
-*Documento generado para la bitácora de sistemas - 2026*
+----
