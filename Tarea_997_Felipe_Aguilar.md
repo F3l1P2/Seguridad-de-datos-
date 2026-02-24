@@ -36,7 +36,7 @@ graph BT
 ```
 
 > [!TIP]
-> **Regla de oro:** A mayor seguridad, generalmente menor es la usabilidad para el usuario final. El objetivo es encontrar el punto de equilibrio óptimo.
+> **Regla de oro:** A mayor seguridad, generalmente menor es la usabilidad para el usuario final. El objetivo es encontrar el punto de equilibrio óptimo
 
 ---
 
