@@ -1,126 +1,129 @@
 
-### Bitácora de Ciberseguridad: Gestión y Protocolos
-**Por:** Felipe Adahir Aguilar Chan  
-**Repositorio:** Seguridad-de-Datos
+---
+
+###  Bitácora de felipe aguilar
+
+##  1. Comparativa de Arquitecturas: OSI vs TCP/IP
+
+Para gestionar la seguridad, es vital entender cómo se procesan los datos en cada nivel.
+
+| Nivel OSI | Concepto | Modelo TCP/IP | Responsabilidad | Casos de Uso |
+| :--- | :--- | :--- | :--- | :--- |
+| 7 | **Aplicación** | Aplicación | Interfaz con el software final. | SSH, Outlook, Spotify |
+| 6 | **Presentación** | Aplicación | Traducción y encriptación de datos. | TLS/SSL, JSON |
+| 5 | **Sesión** | Aplicación | Sincronización y persistencia. | SQL, NFS |
+| 4 | **Transporte** | Transporte | Segmentación y fiabilidad (puertos). | TCP, UDP |
+| 3 | **Red** | Internet | Determinación de rutas y lógica (IP). | IPv4, BGP |
+| 2 | **Enlace** | Acceso a Red | Transferencia de tramas (física). | Ethernet, ARP |
+| 1 | **Física** | Acceso a Red | Señalización eléctrica o lumínica. | Cobre, SFP |
+
+
 
 ---
 
-##1. Fundamentos de la Seguridad (Pilares)
+##  2. Nivel de Acceso (Capa 2: Enlace)
 
-En lugar de ver la seguridad como un solo concepto, la dividimos en tres objetivos críticos que deben protegerse simultáneamente:
+### Direccionamiento Físico (MAC)
+* **Definición:** Identificador hexadecimal de 48 bits grabado en el hardware (NIC).
+* **Función:** Permite la comunicación dentro de un mismo segmento de red local.
+* **Limitación:** Los routers no permiten el paso de tráfico basado solo en MAC fuera de la subred.
 
+### MAC Spoofing & Manipulación
+Técnica para modificar la identidad física de un equipo para:
+1.  Saltar firewalls basados en "White-listing" de hardware.
+2.  Interceptar paquetes en redes inalámbricas.
+3.  Efectuar ataques de **Man-in-the-Middle**.
 
+### Infraestructura de Conmutación (Switches)
+* Un Switch no inspecciona paquetes IP; trabaja con tramas.
+* **Ataques de Poisoning:** Alteración de tablas de caché (ARP/DNS/DHCP) para desviar el tráfico.
+* **Defensa:** Uso de **802.1X** para autenticación de puertos.
 
-1. **Privacidad (Confidencialidad):** Blindar el acceso para que solo los usuarios autorizados visualicen la información.
-2. **Consistencia (Integridad):** Asegurar que los datos permanezcan inalterados y exactos desde su origen hasta su destino.
-3. **Continuidad (Disponibilidad):** Garantizar que los recursos sean funcionales siempre que el negocio lo requiera.
+---
+
+##  3. Nivel de Internet (Capa 3: Red)
+
+### Protocolo IP (Direccionamiento Lógico)
+Las direcciones IP son la base del ruteo global.
+* **Ámbitos de aplicación:** Servicios de correo, bases de datos remotas, y resolución de dominios web.
+* **Segmentación:** El uso de máscaras de subred permite dividir la red para aumentar la seguridad.
 
 > [!NOTE]
-> **Balance del Sistema:** Un sistema ideal equilibra estos pilares con la **Usabilidad** (facilidad de uso) y la **Funcionalidad** (qué tanto hace el sistema).
+> Un Switch actúa como un policía de tráfico local; un Router es el mapa para salir a otras ciudades (redes).
 
 ---
 
-##2. El Flujo de Datos: Interacción de Modelos
+##  4. Transporte y Control de Flujo (Capa 4)
 
-Para entender cómo viaja la información y dónde fallan los sistemas, comparamos las arquitecturas OSI y TCP/IP:
+### Gestión de Puertos Lógicos
+Contamos con un espectro de **65,536 puertos** para diferenciar servicios.
 
-| Jerarquía | Capa OSI | Enfoque TCP/IP | Responsabilidad Clave |
-| :--- | :--- | :--- | :--- |
-| **Alta** | Aplicación, Presentación, Sesión | **Aplicación** | Procesos de red, cifrado y control de sesiones. |
-| **Media** | Transporte | **Transporte** | Comunicación extremo a extremo (Puertos). |
-| **Baja** | Red | **Internet** | Encaminamiento y direccionamiento lógico (IP). |
-| **Física** | Enlace y Física | **Acceso a Red** | Conexión física y direccionamiento de hardware (MAC). |
+| Puerto | Servicio Crítico | Uso |
+| :--- | :--- | :--- |
+| 22 | SSH | Túneles de administración |
+| 443 | HTTPS | Tráfico web cifrado |
+| 53 | DNS | Traducción de nombres |
+| 3306 | MySQL | Bases de datos |
+| 3389 | RDP | Escritorio Remoto |
 
----
-
-##3. Protocolos de Transporte y Conectividad
-
-###TCP: El Protocolo de Confianza
-Para asegurar que los datos lleguen completos, TCP utiliza un **Apretón de Manos (Handshake)** antes de enviar información:
+### Mecanismos: TCP vs UDP
+* **TCP (Transmission Control Protocol):** Robusto, garantiza que el dato llegue mediante el **3-Way Handshake**.
+* **UDP (User Datagram Protocol):** Prioriza la latencia baja; no reintenta envíos (ideal para streaming).
 
 ```mermaid
-graph TD
-    subgraph Proceso de Conexión
-    A[Cliente: SYN] --> B[Servidor: SYN-ACK]
-    B --> C[Cliente: ACK]
-    end
-    C --> D((Conexión Establecida))
-    style D fill:#4CAF50,stroke:#333
+sequenceDiagram
+    participant Cliente
+    participant Servidor
+    Note over Cliente, Servidor: Proceso de Sincronización (TCP)
+    Cliente->>Servidor: SYN
+    Servidor-->>Cliente: SYN-ACK
+    Cliente->>Servidor: ACK
 
 ```
 
-* **UDP:** A diferencia de TCP, prioriza la velocidad (Streaming, Gaming) sacrificando la confirmación de entrega.
+---
+
+## 5. Auditoría de Seguridad y Pentesting
+
+### Perfiles de Ciberseguridad
+
+* **Hacker Ético (White Hat):** Profesionales con permiso para hallar y corregir brechas.
+* **Atacante (Black Hat):** Actores maliciosos que buscan lucro o sabotaje.
+* **Gray Hat:** Actúan sin permiso, pero suelen tener una ética voluble (pueden o no dañar).
+* **Insider:** La mayor amenaza; personal interno con privilegios de acceso.
+
+### Metodología de un Pentest Profesional
+
+1. **Passive Reconnaissance:** Búsqueda de información pública.
+2. **Escaneo Activo:** Detección de servicios con `Nmap`.
+3. **Vulnerability Analysis:** Identificación de debilidades (Flaws).
+4. **Explotación:** Uso de un **Exploit** para inyectar un **Payload**.
+5. **Persistencia:** Mantener el acceso mediante puertas traseras legales.
 
 ---
 
-##4. Ecosistema de Amenazas y Hacking
+## 6. Vectores de Ataque por Capa OSI
 
-El mundo del hacking se define por la **ética** y el **propósito** del actor:
+La clasificación de ataques permite diseñar una **Defensa en Profundidad**.
 
-* **Auditores Éticos (White Hat):** Fortalecen defensas mediante pruebas autorizadas.
-* **Ciberdelincuentes (Black Hat):** Atacan con fines de lucro o espionaje.
-* **Hacktivistas:** Buscan impacto social o político a través de ataques digitales.
-* **Insiders:** Usuarios internos que abusan de sus privilegios (la amenaza más difícil de detectar).
-
-### Metodología de Auditoría (Pentesting)
-
-Un análisis profesional no es aleatorio, sigue estas fases:
-
-1. **Reconocimiento:** Recolección pasiva y activa de datos.
-2. **Escaneo:** Uso de herramientas como `Nmap` para hallar servicios.
-3. **Explotación:** Aprovechar una **Vulnerabilidad** mediante un **Exploit**.
-4. **Post-Explotación:** Escalada de privilegios y persistencia.
-
----
-
-## 5. Análisis del Riesgo Digital
-
-El riesgo es una medida de probabilidad. Se define por la interacción de tres elementos:
-
-$$Riesgo = (Amenaza \times Vulnerabilidad) \times Impacto$$
-
-* **Vulnerabilidad:** El punto débil (ej. una contraseña por defecto).
-* **Amenaza:** El agente que puede dañarnos (ej. un Ransomware).
-* **Impacto:** El daño real sufrido (ej. 24 horas de operación detenida).
-
----
-
-## 6. Mapa de Ataques por Capas (Modelo OSI)
-
-He clasificado las amenazas según el nivel donde operan para facilitar su mitigación:
-
-```mermaid
-mindmap
-  root((Ataques OSI))
-    Capa_7_Aplicación
-      Inyección SQL
-      Cross-Site Scripting -XSS-
-    Capa_4_Transporte
-      SYN Flood
-      Port Scanning
-    Capa_3_Red
-      IP Spoofing
-      ICMP Flood
-    Capa_2_Enlace
-      ARP Poisoning
-      MAC Spoofing
-
-```
-
-| Capa | Ataque | Mitigación Recomendada |
+| Nivel | Amenaza Común | Objetivo |
 | --- | --- | --- |
-| **L7** | **Inyección de Código** | Validación estricta de formularios y WAF. |
-| **L6** | **SSL Stripping** | Implementar HSTS y certificados TLS modernos. |
-| **L4** | **Secuestro de Sesión** | Uso de tokens únicos y cifrado de extremo a extremo. |
-| **L2** | **Ataques de Switch** | Port Security y segmentación de VLANs. |
+| **Capa 7** | SQL Injection | Bases de datos |
+| **Capa 6** | SSL Stripping | Datos en texto plano |
+| **Capa 5** | Session Fixation | Cuentas de usuario |
+| **Capa 4** | SYN Flood | Denegación de Servicio (DoS) |
+| **Capa 3** | IP Spoofing | Evasión de ACLs |
+| **Capa 2** | ARP Poisoning | Intercepción de tráfico |
+| **Capa 1** | Wiretapping | Espionaje físico |
 
 ---
 
-## 7. Glosario de Operaciones
+## 7. Conceptos de Operación
 
-* **Zero-Day:** Vulnerabilidad recién descubierta sin solución técnica.
-* **Payload:** El código dañino que se transporta dentro de un exploit.
-* **MFA:** Autenticación que requiere *algo que sabes*, *algo que tienes* y *algo que eres*.
-* **SIEM:** Software que monitorea logs para alertar sobre comportamientos inusuales.
+* **Zero-Day:** Falla de seguridad sin parche disponible.
+* **SIEM:** Centralización de logs para monitoreo proactivo.
+* **Shodan:** Herramienta para localizar activos críticos expuestos a la red pública.
+* **MFA:** Protección de identidad mediante tres factores: *Lo que sabes, lo que tienes y lo que eres.*
 
-```
+---
+
