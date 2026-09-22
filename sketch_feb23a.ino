@@ -108,7 +108,7 @@ void loop() {
   DigiKeyboard.delay(3000); // 3s para que cargue
 
   // ==========================================
-  // FINAL: Bloqueo del script
+  // FINAL: Bloqueo del script.
   // ==========================================
   for (;;) {
     digitalWrite(1, HIGH); delay(500); 
