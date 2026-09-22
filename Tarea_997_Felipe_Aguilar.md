@@ -1,8 +1,7 @@
-# Tarea #997: Conceptos Básicos de Seguridad Informática
+Conceptos Básicos de Seguridad Informática
 
 **Alumno:** Felipe Adahir Aguilar Chan  
 **Materia:** Seguridad de la Información  
-**Fecha:** 15 de febrero de 2026
 
 ---
 
