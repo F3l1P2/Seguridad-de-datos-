@@ -1,7 +1,7 @@
 
 ---
 
-###  Bitácora de felipe aguilar
+###  Bitácora 
 
 ##  1. Comparativa de Arquitecturas: OSI vs TCP/IP
 
