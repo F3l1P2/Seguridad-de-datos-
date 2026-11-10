@@ -1,4 +1,4 @@
-# Reconocimiento OSINT sobre Costco
+#Reconocimiento OSINT sobre Costco
 
 ## Introducción
 
